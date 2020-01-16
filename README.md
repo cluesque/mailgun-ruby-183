@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A very bare bones rails application demonstrating a bug in the mailgun-ruby gem.
 
-Things you may want to cover:
+https://github.com/mailgun/mailgun-ruby/issues/183
 
-* Ruby version
+In one shell, run the fake mailgun server:
 
-* System dependencies
+```
+FAKE_MAILGUN_DELAY=90 ./bin/fake_mailgun.rb -p 8025
+```
 
-* Configuration
+In another, rails console:
 
-* Database creation
+```
+$ rails c
+irb(main):001:0> SimpleMailer.hello_email('foo@example.net', 'hello there').deliver_now
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+That mail send will not return until the delay elapses.
